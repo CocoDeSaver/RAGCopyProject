@@ -4,6 +4,7 @@ __pycache__/
 *.pyd
 *.so
 ENVBICARAKAN/
+ollama.txt
 venv/
 .venv
 Include/

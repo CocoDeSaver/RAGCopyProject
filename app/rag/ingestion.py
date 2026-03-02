@@ -4,7 +4,7 @@ import numpy as np
 from app.rag.embedder import embed_text
 from app.rag.file_loader import load_markdown_files
 from app.rag.chunker import chunk_text
-from app.core.config import FAISS_INDEX_PATH, CHUNK_PATH
+from app.core.config import settings
 
 def build_index():
     documents = load_markdown_files()
@@ -28,8 +28,8 @@ def build_index():
     index = faiss.IndexFlatL2(dimension)
     index.add(vectors)
 
-    faiss.write_index(index, FAISS_INDEX_PATH)
-    with open(CHUNK_PATH, "wb") as f:
+    faiss.write_index(index, settings.FAISS_INDEX_PATH)
+    with open(settings.CHUNK_PATH, "wb") as f:
         pickle.dump(all_chunks, f)
     
     print("Faiss index berhasil dibuat")

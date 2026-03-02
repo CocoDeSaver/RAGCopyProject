@@ -1,12 +1,11 @@
 import requests
 import numpy as np
-from app.core.config import OLLAMA_BASE_URL, EMBED_MODEL
-
+from app.core.config import settings
 def embed_text(text: str) -> np.ndarray:
     response = requests.post(
-        f"{OLLAMA_BASE_URL}/api/embeddings",
+        f"{settings.OLLAMA_BASE_URL}/api/embeddings",
         json = {
-            'model': EMBED_MODEL,
+            'model': settings.EMBED_MODEL,
             "prompt": text
         }
     )

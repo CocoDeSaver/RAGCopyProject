@@ -1,14 +1,14 @@
 import requests
-from app.core.config import OLLAMA_BASE_URL, OLLAMA_MODEL
+from groq import Groq
+from app.core.config import settings
 
+client = Groq(api_key=settings.GROQ_API_KEY)
+print("API KEY:", settings.GROQ_API_KEY)
 
-def call_ollama(prompt: str):
-    response = requests.post(
-        f"{OLLAMA_BASE_URL}/api/generate",
-        json = {
-            "model": OLLAMA_MODEL,
-            "prompt": prompt,
-            "stream": False
-        }
+def generate_response(messages):
+    response = client.chat.completions.create(
+        model = settings.GROQ_MODEL,
+        messages = messages,
+        temperature = 0.7
     )
-    return response.json()["response"]
+    return response.choices[0].message.content
