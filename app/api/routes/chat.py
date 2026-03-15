@@ -7,8 +7,13 @@ router = APIRouter()
 @router.post("/chat")
 async def chat(data: ChatRequest):
     try: 
+        messages = data.history if data.history else []
+        messages.append({
+            'role' : 'user',
+            'content' : data.message
+        })
         response = generate_answer(
-            user_message = data.message,
+            messages = messages,
             persona_name = data.persona
         )
         return {
