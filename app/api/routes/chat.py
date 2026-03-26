@@ -12,15 +12,18 @@ async def chat(data: ChatRequest):
             'role' : 'user',
             'content' : data.message
         })
-        response = generate_answer(
+        result = generate_answer(
             messages = messages,
             persona_name = data.persona
         )
+
         return {
             "status" : "success",
             "persona" : data.persona,
-            "response" : response
+            "reply" : result["reply"],
+            "alert" : result["alert"]
             }
+
     except Exception as e:
         return {
             "status" : "error",
